@@ -93,7 +93,6 @@ def render_link_aman(link):
   if not link_str or link_str == "-" or link_str.lower() == "none":
     st.markdown("🔗 *Tautan Proyek: Tidak disertakan (-)*")
   else:
-    # Jika user lupa menuliskan https://, otomatis ditambahkan
     if not link_str.startswith("http://") and not link_str.startswith(
         "https://"
     ):
@@ -364,8 +363,6 @@ elif menu == "Validasi Request Siswa (Admin)":
               st.rerun()
           with col_rej:
             if st.button("❌ Tolak & Hapus", key=f"rej_{p_id}"):
-              cursor.execute("DELETE portfolios WHERE id = ?", (p_id,))
-              # Fix query delete
               cursor.execute("DELETE FROM portfolios WHERE id = ?", (p_id,))
               conn.commit()
               st.error(f"Request '{judul}' ditolak dan dihapus.")
